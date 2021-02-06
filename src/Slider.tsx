@@ -99,13 +99,12 @@ const Slider: FC<SliderProps> = (props) => {
                 props.onChange && props.onChange(newValue)
             }}
         >
-            {props.label &&
             <animated.div
                 className={styles.label}
                 style={labelStyle}
             >
                 {props.label}
-            </animated.div>}
+            </animated.div>
             <div
                 ref={trackRef}
                 className={styles.track}
