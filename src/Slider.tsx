@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import {observer} from "mobx-react";
 import {computedFn} from "mobx-utils";
 import {stylesheet} from "typestyle";
@@ -6,10 +6,10 @@ import {percent} from "csx";
 import useMeasure from "react-use-measure";
 import {animated, useSpring} from "react-spring";
 
-export interface BarProps {
+export interface SliderProps {
     label: string
     value: [number, number]
-    onChange: (newValue: [number, number])=> void
+    onChange?: (newValue: [number, number])=> void
 }
 
 const useStyles = computedFn(() => (stylesheet({
@@ -54,7 +54,7 @@ const useStyles = computedFn(() => (stylesheet({
     },
 })))
 
-const Slider = (props: BarProps) => {
+const Slider: FC<SliderProps> = (props) => {
     let [isHover, setIsHover] = useState<[boolean, boolean]>([false, false])
     let [isDragging, setIsDragging] = useState<[boolean, boolean]>([false, false])
     let [trackRef, trackBounds] = useMeasure()
