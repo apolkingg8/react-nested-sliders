@@ -28,5 +28,5 @@ export const onChange = ()=> {
 }
 
 export default {
-    title: 'Bar',
+    title: 'Slider',
 } as Meta
