@@ -1,16 +1,16 @@
 import * as React from 'react';
 import {Meta} from "@storybook/react";
-import Bar from "./Slider";
+import Slider from "./Slider";
 
 export const defaultProps = ()=> {
     return (
-        <Bar/>
+        <Slider/>
     )
 }
 
 export const withLabel = ()=> {
     return (
-        <Bar
+        <Slider
             label={`Foo`}
         />
     )
@@ -18,7 +18,7 @@ export const withLabel = ()=> {
 
 export const onChange = ()=> {
     return (
-        <Bar
+        <Slider
             label={`Check console`}
             onChange={(value)=> {
                 console.log(value)
