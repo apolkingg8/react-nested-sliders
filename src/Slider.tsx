@@ -46,10 +46,8 @@ const useStyles = computedFn(() => (stylesheet({
 })))
 
 const Slider = (props: BarProps) => {
-    let [isDraggingLeft, setIsDraggingLeft] = useState(false)
-    let [isDraggingRight, setIsDraggingRight] = useState(false)
-    let [left, setLeft] = useState(0)
-    let [right, setRight] = useState(100)
+    let [isDragging, setIsDragging] = useState([false, false])
+    let [value, setValue] = useState([0, 100])
     let [trackRef, trackBounds] = useMeasure()
     let trackWidth = trackBounds.width - 32
     let styles = useStyles()
@@ -58,28 +56,26 @@ const Slider = (props: BarProps) => {
         <div
             className={styles.wrap}
             onMouseUp={()=> {
-                setIsDraggingLeft(false)
-                setIsDraggingRight(false)
+                setIsDragging([false, false])
             }}
             onMouseLeave={()=> {
-                setIsDraggingLeft(false)
-                setIsDraggingRight(false)
+                setIsDragging([false, false])
             }}
             onMouseMove={(event)=> {
 
-                if((!isDraggingLeft && !isDraggingRight)
-                    || !event.clientX || event.clientX <= 0) {
+                if((!isDragging[0] && !isDragging[1])
+                || !event.clientX || event.clientX <= 0) {
                     return
                 }
 
-                if(isDraggingLeft) {
+                if(isDragging[0]) {
                     let mX = event.clientX - 8 - trackBounds.x
-                    setLeft(mX / trackWidth * 100)
+                    setValue([mX / trackWidth * 100, value[1]])
                 }
 
-                if(isDraggingRight) {
+                if(isDragging[1]) {
                     let mX = event.clientX - 16 - 8 - trackBounds.x
-                    setRight(mX / trackWidth * 100)
+                    setValue([value[0], mX / trackWidth * 100])
                 }
             }}
         >
@@ -94,21 +90,21 @@ const Slider = (props: BarProps) => {
                 <div
                     className={styles.draggable}
                     style={{
-                        left: trackWidth * left / 100,
+                        left: trackWidth * value[0] / 100,
                     }}
                     draggable={false}
                     onMouseDown={()=> {
-                        setIsDraggingLeft(true)
+                        setIsDragging([true, false])
                     }}
                 />
                 <div
                     className={styles.draggable}
                     style={{
-                        left: trackWidth * right / 100 + 16,
+                        left: trackWidth * value[1] / 100 + 16,
                     }}
                     draggable={false}
                     onMouseDown={()=> {
-                        setIsDraggingRight(true)
+                        setIsDragging([false, true])
                     }}
                 />
             </div>
