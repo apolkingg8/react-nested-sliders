@@ -77,7 +77,7 @@ const Slider = (props: BarProps) => {
 
     useEffect(()=> {
         props.onChange && props.onChange(value)
-    }, [value])
+    }, [...value])
 
     return (
         <animated.div

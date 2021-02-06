@@ -19,8 +19,9 @@ export const withLabel = ()=> {
 export const onChange = ()=> {
     return (
         <Bar
-            onChange={(delayMs, durationMs)=> {
-
+            label={`Check console`}
+            onChange={(value)=> {
+                console.log(value)
             }}
         />
     )
