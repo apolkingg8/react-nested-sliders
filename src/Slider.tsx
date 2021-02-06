@@ -29,6 +29,12 @@ const useStyles = computedFn(() => (stylesheet({
         position: "relative",
         flex: 1,
         height: 8,
+        backgroundColor: 'grey',
+        borderRadius: 4,
+    },
+    bar: {
+        position: "absolute",
+        height: percent(100),
         backgroundColor: 'darkcyan',
         borderRadius: 4,
     },
@@ -50,6 +56,8 @@ const Slider = (props: BarProps) => {
     let [value, setValue] = useState([0, 100])
     let [trackRef, trackBounds] = useMeasure()
     let trackWidth = trackBounds.width - 32
+    let leftPosition = trackWidth * value[0] / 100
+    let rightPosition = trackWidth * (100 - value[1]) / 100
     let styles = useStyles()
 
     return (
@@ -88,21 +96,28 @@ const Slider = (props: BarProps) => {
                 className={styles.track}
             >
                 <div
+                    className={styles.bar}
+                    style={{
+                        left: leftPosition,
+                        right: rightPosition,
+                    }}
+                />
+                <div
+                    draggable={false}
                     className={styles.draggable}
                     style={{
-                        left: trackWidth * value[0] / 100,
+                        left: leftPosition,
                     }}
-                    draggable={false}
                     onMouseDown={()=> {
                         setIsDragging([true, false])
                     }}
                 />
                 <div
+                    draggable={false}
                     className={styles.draggable}
                     style={{
-                        left: trackWidth * value[1] / 100 + 16,
+                        right: rightPosition,
                     }}
-                    draggable={false}
                     onMouseDown={()=> {
                         setIsDragging([false, true])
                     }}
