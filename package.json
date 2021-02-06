@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
@@ -12,5 +13,11 @@
     "ts-jest": "^26.5.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "mobx": "^6.1.5",
+    "mobx-react": "^7.1.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   }
 }
