@@ -1,5 +1,5 @@
 
-describe("dndStore", ()=> {
+describe("store", ()=> {
 
     test("", async ()=> {
 
