@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react";
 import {computedFn} from "mobx-utils";
 import {stylesheet} from "typestyle";
@@ -7,7 +7,7 @@ import useMeasure from "react-use-measure";
 
 export interface BarProps {
     label?: string
-    onChange?: (delayMs: number, durationMs: number)=> void
+    onChange?: (value: [number, number])=> void
 }
 
 const useStyles = computedFn(() => (stylesheet({
@@ -37,8 +37,9 @@ const useStyles = computedFn(() => (stylesheet({
         height: percent(100),
         backgroundColor: 'darkcyan',
         borderRadius: 4,
+        cursor: "move",
     },
-    draggable: {
+    dot: {
         "-webkit-user-drag": "none",
         position: "absolute",
         top: -6,
@@ -53,12 +54,16 @@ const useStyles = computedFn(() => (stylesheet({
 
 const Slider = (props: BarProps) => {
     let [isDragging, setIsDragging] = useState([false, false])
-    let [value, setValue] = useState([0, 100])
+    let [value, setValue] = useState<[number, number]>([0, 100])
     let [trackRef, trackBounds] = useMeasure()
     let trackWidth = trackBounds.width - 32
     let leftPosition = trackWidth * value[0] / 100
     let rightPosition = trackWidth * (100 - value[1]) / 100
     let styles = useStyles()
+
+    useEffect(()=> {
+        props.onChange && props.onChange(value)
+    }, [value])
 
     return (
         <div
@@ -71,20 +76,16 @@ const Slider = (props: BarProps) => {
             }}
             onMouseMove={(event)=> {
 
-                if((!isDragging[0] && !isDragging[1])
-                || !event.clientX || event.clientX <= 0) {
+                if(!event.clientX || event.clientX <= 0) {
                     return
                 }
 
-                if(isDragging[0]) {
-                    let mX = event.clientX - 8 - trackBounds.x
-                    setValue([mX / trackWidth * 100, value[1]])
-                }
+                let dx = (event.movementX / trackWidth) * 100
 
-                if(isDragging[1]) {
-                    let mX = event.clientX - 16 - 8 - trackBounds.x
-                    setValue([value[0], mX / trackWidth * 100])
-                }
+                setValue([
+                    value[0] + (isDragging[0] ? dx : 0),
+                    value[1] + (isDragging[1] ? dx : 0),
+                ])
             }}
         >
             {props.label &&
@@ -101,10 +102,13 @@ const Slider = (props: BarProps) => {
                         left: leftPosition,
                         right: rightPosition,
                     }}
+                    onMouseDown={()=> {
+                        setIsDragging([true, true])
+                    }}
                 />
                 <div
                     draggable={false}
-                    className={styles.draggable}
+                    className={styles.dot}
                     style={{
                         left: leftPosition,
                     }}
@@ -114,7 +118,7 @@ const Slider = (props: BarProps) => {
                 />
                 <div
                     draggable={false}
-                    className={styles.draggable}
+                    className={styles.dot}
                     style={{
                         right: rightPosition,
                     }}
