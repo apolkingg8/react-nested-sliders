@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Meta} from "@storybook/react";
-import Bar from "./Bar";
+import Bar from "./Slider";
 
 export const defaultProps = ()=> {
     return (

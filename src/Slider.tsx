@@ -45,7 +45,7 @@ const useStyles = computedFn(() => (stylesheet({
     },
 })))
 
-const Bar = (props: BarProps) => {
+const Slider = (props: BarProps) => {
     let [isDraggingLeft, setIsDraggingLeft] = useState(false)
     let [isDraggingRight, setIsDraggingRight] = useState(false)
     let [left, setLeft] = useState(0)
@@ -116,4 +116,4 @@ const Bar = (props: BarProps) => {
     )
 }
 
-export default observer(Bar)
+export default observer(Slider)
