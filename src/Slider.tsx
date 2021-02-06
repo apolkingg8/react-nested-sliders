@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {observer} from "mobx-react";
 import {computedFn} from "mobx-utils";
 import {stylesheet} from "typestyle";
@@ -7,8 +7,9 @@ import useMeasure from "react-use-measure";
 import {animated, useSpring} from "react-spring";
 
 export interface BarProps {
-    label?: string
-    onChange?: (value: [number, number])=> void
+    label: string
+    value: [number, number]
+    onChange: (newValue: [number, number])=> void
 }
 
 const useStyles = computedFn(() => (stylesheet({
@@ -56,11 +57,10 @@ const useStyles = computedFn(() => (stylesheet({
 const Slider = (props: BarProps) => {
     let [isHover, setIsHover] = useState<[boolean, boolean]>([false, false])
     let [isDragging, setIsDragging] = useState<[boolean, boolean]>([false, false])
-    let [value, setValue] = useState<[number, number]>([0, 100])
     let [trackRef, trackBounds] = useMeasure()
     let trackWidth = trackBounds.width - 32
-    let leftPosition = trackWidth * value[0] / 100
-    let rightPosition = trackWidth * (100 - value[1]) / 100
+    let leftPosition = trackWidth * props.value[0] / 100
+    let rightPosition = trackWidth * (100 - props.value[1]) / 100
     let styles = useStyles()
     let labelStyle = useSpring({
         scale: (isDragging[0] || isDragging[1]) ? 1.3 : (isHover[0] || isHover[1]) ? 1.1 : 1,
@@ -74,10 +74,6 @@ const Slider = (props: BarProps) => {
     let rightDotStyle = useSpring({
         scale: isDragging[1] ? 1.3 : isHover[1] ? 1.1 : 1,
     })
-
-    useEffect(()=> {
-        props.onChange && props.onChange(value)
-    }, [...value])
 
     return (
         <animated.div
@@ -95,11 +91,12 @@ const Slider = (props: BarProps) => {
                 }
 
                 let dx = (event.movementX / trackWidth) * 100
+                let newValue: [number, number] = [
+                    props.value[0] + (isDragging[0] ? dx : 0),
+                    props.value[1] + (isDragging[1] ? dx : 0),
+                ]
 
-                setValue([
-                    value[0] + (isDragging[0] ? dx : 0),
-                    value[1] + (isDragging[1] ? dx : 0),
-                ])
+                props.onChange && props.onChange(newValue)
             }}
         >
             {props.label &&
