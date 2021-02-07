@@ -84,6 +84,7 @@ const NestedSlider: FC<NestedSliderProps> = (props) => {
                 {!props.data.isCollapsed ? props.data.nodes.map((data)=> {
                     return (
                         <NestedSlider
+                            key={data.id}
                             data={data}
                             onChange={props.onChange}
                         />

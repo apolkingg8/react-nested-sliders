@@ -159,7 +159,7 @@ export const multipleNested = ()=> {
             <NestedSlider
                 data={data2}
                 onChange={(newNode)=> {
-                    setData(helper.handleNewNode(data2, newNode))
+                    setData2(helper.handleNewNode(data2, newNode))
                 }}
             />
         </>
