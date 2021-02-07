@@ -18,7 +18,7 @@ export interface NestedSliderProps {
     onChange?: (node: NestedSliderNode)=> void
 }
 
-const useStyles = _.memoize(()=> (stylesheet({
+const getStyles = _.memoize(()=> (stylesheet({
     wrap: {
 
     },
@@ -47,7 +47,7 @@ const NestedSlider: FC<NestedSliderProps> = (props) => {
         height: props.data.nodes.length * 64,
         opacity: 1,
     })
-    let styles = useStyles()
+    let styles = getStyles()
 
     return (
         <>

@@ -11,7 +11,7 @@ export interface SliderProps {
     onChange?: (newValue: [number, number])=> void
 }
 
-const useStyles = _.memoize(()=> (stylesheet({
+const getStyles = _.memoize(()=> (stylesheet({
     wrap: {
         display: "flex",
         alignItems: "center",
@@ -21,14 +21,24 @@ const useStyles = _.memoize(()=> (stylesheet({
     label: {
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
+        flexShrink: 0,
+        width: 64,
         height: percent(100),
         paddingLeft: 16,
         paddingRight: 16,
     },
+    trackWrap: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        flex: 1,
+        height: percent(100),
+        overflowX: "auto",
+    },
     track: {
         position: "relative",
-        flex: 1,
+        width: 800,
         height: 8,
         backgroundColor: 'grey',
         borderRadius: 4,
@@ -59,13 +69,13 @@ const Slider: FC<SliderProps> = (props) => {
     let trackWidth = trackBounds.width - 32
     let leftPosition = trackWidth * props.value[0] / 100
     let rightPosition = trackWidth * (100 - props.value[1]) / 100
-    let styles = useStyles()
+    let styles = getStyles()
     let labelStyle = useSpring({
         color: (isHover[0] || isHover[1]) ? "darkcyan" : "black",
         scale: (isDragging[0] || isDragging[1]) ? 1.2 : 1,
     })
     let barStyle = useSpring({
-        backgroundColor: (isHover[0] && isHover[1]) ? "darkcyan" : "black",
+        backgroundColor: (isHover[0] || isHover[1]) ? "darkcyan" : "black",
         scaleY: (isDragging[0] && isDragging[1]) ? 1.2 : 1,
     })
     let leftDotStyle = useSpring({
@@ -108,61 +118,63 @@ const Slider: FC<SliderProps> = (props) => {
             >
                 {props.label}
             </animated.div>
-            <div
-                ref={trackRef}
-                className={styles.track}
-            >
-                <animated.div
-                    className={styles.bar}
-                    style={{
-                        ...barStyle,
-                        left: leftPosition,
-                        right: rightPosition,
-                    }}
-                    onMouseEnter={()=> {
-                        setIsHover([true, true])
-                    }}
-                    onMouseLeave={()=> {
-                        setIsHover([false, false])
-                    }}
-                    onMouseDown={()=> {
-                        setIsDragging([true, true])
-                    }}
-                />
-                <animated.div
-                    draggable={false}
-                    className={styles.dot}
-                    style={{
-                        ...leftDotStyle,
-                        left: leftPosition,
-                    }}
-                    onMouseEnter={()=> {
-                        setIsHover([true, false])
-                    }}
-                    onMouseLeave={()=> {
-                        setIsHover([false, false])
-                    }}
-                    onMouseDown={()=> {
-                        setIsDragging([true, false])
-                    }}
-                />
-                <animated.div
-                    draggable={false}
-                    className={styles.dot}
-                    style={{
-                        ...rightDotStyle,
-                        right: rightPosition,
-                    }}
-                    onMouseEnter={()=> {
-                        setIsHover([false, true])
-                    }}
-                    onMouseLeave={()=> {
-                        setIsHover([false, false])
-                    }}
-                    onMouseDown={()=> {
-                        setIsDragging([false, true])
-                    }}
-                />
+            <div className={styles.trackWrap}>
+                <div
+                    ref={trackRef}
+                    className={styles.track}
+                >
+                    <animated.div
+                        className={styles.bar}
+                        style={{
+                            ...barStyle,
+                            left: leftPosition,
+                            right: rightPosition,
+                        }}
+                        onMouseEnter={()=> {
+                            setIsHover([true, true])
+                        }}
+                        onMouseLeave={()=> {
+                            setIsHover([false, false])
+                        }}
+                        onMouseDown={()=> {
+                            setIsDragging([true, true])
+                        }}
+                    />
+                    <animated.div
+                        draggable={false}
+                        className={styles.dot}
+                        style={{
+                            ...leftDotStyle,
+                            left: leftPosition,
+                        }}
+                        onMouseEnter={()=> {
+                            setIsHover([true, false])
+                        }}
+                        onMouseLeave={()=> {
+                            setIsHover([false, false])
+                        }}
+                        onMouseDown={()=> {
+                            setIsDragging([true, false])
+                        }}
+                    />
+                    <animated.div
+                        draggable={false}
+                        className={styles.dot}
+                        style={{
+                            ...rightDotStyle,
+                            right: rightPosition,
+                        }}
+                        onMouseEnter={()=> {
+                            setIsHover([false, true])
+                        }}
+                        onMouseLeave={()=> {
+                            setIsHover([false, false])
+                        }}
+                        onMouseDown={()=> {
+                            setIsDragging([false, true])
+                        }}
+                    />
+                </div>
             </div>
         </animated.div>
     )
