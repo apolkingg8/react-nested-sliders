@@ -8,13 +8,14 @@ import _ from "lodash";
 export interface SliderProps {
     label: string
     value: [number, number]
-    onChange?: (newValue: [number, number])=> void
+    onChange: (newValue: [number, number])=> void
+    trackWidth?: number
 }
 
 const sliderSize = 4
 const dotSize = 8
 
-const getStyles = _.memoize(()=> (stylesheet({
+const getStyles = _.memoize((props: SliderProps)=> (stylesheet({
     wrap: {
         display: "flex",
         alignItems: "center",
@@ -42,7 +43,7 @@ const getStyles = _.memoize(()=> (stylesheet({
     track: {
         "-webkit-user-drag": "none",
         position: "relative",
-        width: 800,
+        width: props.trackWidth ?? 800,
         height: sliderSize,
         backgroundColor: 'grey',
         borderRadius: sliderSize / 2,
@@ -74,10 +75,10 @@ const Slider: FC<SliderProps> = (props) => {
     let trackWidth = trackBounds.width - 32
     let leftPosition = trackWidth * props.value[0] / 100
     let rightPosition = trackWidth * (100 - props.value[1]) / 100
-    let styles = getStyles()
+    let styles = getStyles(props)
     let labelStyle = useSpring({
         color: (isHover[0] || isHover[1] || isDragging[0] || isDragging[1]) ? "darkcyan" : "black",
-        transform: `scale(${(isDragging[0] || isDragging[1]) ? 1.2 : 1})`,
+        fontWeight: (isDragging[0] || isDragging[1]) ? "bold" : "normal",
     })
     let barStyle = useSpring({
         backgroundColor: (isHover[0] || isHover[1] || isDragging[0] || isDragging[1]) ? "darkcyan" : "black",
