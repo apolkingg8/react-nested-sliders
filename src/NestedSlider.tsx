@@ -61,7 +61,9 @@ const NestedSlider: FC<NestedSliderProps> = (props) => {
                         })
                     }}
                 >
-                    {props.data.isCollapsed ? `+` : `-`}
+                    {props.data.nodes.length > 0
+                        ? props.data.isCollapsed ? `+` : `-`
+                        : null}
                 </div>
                 <Slider
                     key={props.data.id}
