@@ -1,6 +1,4 @@
 import React, {FC} from "react";
-import {observer} from "mobx-react";
-import {computedFn} from "mobx-utils";
 import {stylesheet} from "typestyle";
 import Slider from "./Slider";
 import {percent} from "csx";
@@ -18,7 +16,7 @@ export interface NestedSliderProps {
     onChange?: (node: NestedSliderNode)=> void
 }
 
-const useStyles = computedFn(() => (stylesheet({
+const useStyles = ()=> (stylesheet({
     wrap: {
         display: "flex",
         alignItems: "center",
@@ -31,7 +29,7 @@ const useStyles = computedFn(() => (stylesheet({
         height: percent(100),
         cursor: "pointer",
     }
-})))
+}))
 
 const NestedSlider: FC<NestedSliderProps> = (props) => {
     let styles = useStyles()
@@ -74,4 +72,4 @@ const NestedSlider: FC<NestedSliderProps> = (props) => {
     )
 }
 
-export default observer(NestedSlider)
+export default NestedSlider

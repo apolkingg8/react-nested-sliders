@@ -29,9 +29,6 @@
   },
   "dependencies": {
     "csx": "^10.0.2",
-    "mobx": "^6.1.5",
-    "mobx-react": "^7.1.0",
-    "mobx-utils": "^6.0.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-spring": "^9.0.0-rc.3",

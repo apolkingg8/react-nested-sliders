@@ -1,6 +1,4 @@
 import React, {FC, useState} from "react";
-import {observer} from "mobx-react";
-import {computedFn} from "mobx-utils";
 import {stylesheet} from "typestyle";
 import {percent} from "csx";
 import useMeasure from "react-use-measure";
@@ -12,7 +10,7 @@ export interface SliderProps {
     onChange?: (newValue: [number, number])=> void
 }
 
-const useStyles = computedFn(() => (stylesheet({
+const useStyles = ()=> (stylesheet({
     wrap: {
         display: "flex",
         alignItems: "center",
@@ -52,7 +50,7 @@ const useStyles = computedFn(() => (stylesheet({
         borderRadius: percent(50),
         cursor: "move",
     },
-})))
+}))
 
 const Slider: FC<SliderProps> = (props) => {
     let [isHover, setIsHover] = useState<[boolean, boolean]>([false, false])
@@ -166,4 +164,4 @@ const Slider: FC<SliderProps> = (props) => {
     )
 }
 
-export default observer(Slider)
+export default Slider
