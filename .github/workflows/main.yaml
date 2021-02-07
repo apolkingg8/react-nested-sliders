@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - temp
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - run: yarn install
+      - run: yarn deploy-storybook
+
