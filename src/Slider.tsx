@@ -1,6 +1,6 @@
 import React, {FC, useState} from "react";
 import {stylesheet} from "typestyle";
-import {percent} from "csx";
+import {color, percent} from "csx";
 import useMeasure from "react-use-measure";
 import {animated, useSpring} from "react-spring";
 import _ from "lodash";
@@ -10,6 +10,7 @@ export interface SliderProps {
     value: [number, number]
     onChange: (newValue: [number, number])=> void
     trackWidth?: number
+    color?: string
 }
 
 const sliderSize = 4
@@ -69,30 +70,36 @@ const getStyles = _.memoize((props: SliderProps)=> (stylesheet({
 })))
 
 const Slider: FC<SliderProps> = (props) => {
+    let newProps = Object.assign({}, props, {
+        trackWidth: props.trackWidth || 800,
+        color: props.color || '#0097A7',
+    })
+    let mainColor = newProps.color
+    let lightColor = color(newProps.color).lighten(0.1).toString()
     let [isHover, setIsHover] = useState<[boolean, boolean]>([false, false])
     let [isDragging, setIsDragging] = useState<[boolean, boolean]>([false, false])
     let [trackRef, trackBounds] = useMeasure()
     let trackWidth = trackBounds.width - 32
-    let leftPosition = trackWidth * props.value[0] / 100
-    let rightPosition = trackWidth * (100 - props.value[1]) / 100
-    let styles = getStyles(props)
+    let leftPosition = trackWidth * newProps.value[0] / 100
+    let rightPosition = trackWidth * (100 - newProps.value[1]) / 100
+    let styles = getStyles(newProps)
     let labelStyle = useSpring({
-        color: (isHover[0] || isHover[1] || isDragging[0] || isDragging[1]) ? "darkcyan" : "black",
+        color: (isHover[0] || isHover[1] || isDragging[0] || isDragging[1]) ? mainColor : lightColor,
         fontWeight: (isDragging[0] || isDragging[1]) ? "bold" : "normal",
     })
     let barStyle = useSpring({
-        backgroundColor: (isHover[0] || isHover[1] || isDragging[0] || isDragging[1]) ? "darkcyan" : "black",
+        backgroundColor: (isHover[0] || isHover[1] || isDragging[0] || isDragging[1]) ? mainColor : lightColor,
         transform: `scaleY(${(isDragging[0] || isDragging[1]) ? 1.2 : 1})`,
     })
     let leftDotStyle = useSpring({
-        borderColor: (isHover[0] || isDragging[0]) ? "darkcyan" : "black",
+        borderColor: (isHover[0] || isDragging[0]) ? mainColor : lightColor,
         transform: `scale(${isDragging[0] ? 1.5 : 1})`,
-        backgroundColor: isDragging[0] ? "darkcyan" : "white",
+        backgroundColor: isDragging[0] ? mainColor : "white",
     })
     let rightDotStyle = useSpring({
-        borderColor: (isHover[1] || isDragging[1]) ? "darkcyan" : "black",
+        borderColor: (isHover[1] || isDragging[1]) ? mainColor : lightColor,
         transform: `scale(${isDragging[1] ? 1.5 : 1})`,
-        backgroundColor: isDragging[1] ? "darkcyan" : "white",
+        backgroundColor: isDragging[1] ? mainColor : "white",
     })
 
     return (
@@ -113,18 +120,18 @@ const Slider: FC<SliderProps> = (props) => {
 
                 let dx = (event.movementX / trackWidth) * 100
                 let newValue: [number, number] = [
-                    Math.max(0, props.value[0] + (isDragging[0] ? dx : 0)),
-                    Math.min(100, props.value[1] + (isDragging[1] ? dx : 0)),
+                    Math.max(0, newProps.value[0] + (isDragging[0] ? dx : 0)),
+                    Math.min(100, newProps.value[1] + (isDragging[1] ? dx : 0)),
                 ]
 
-                props.onChange && props.onChange(newValue)
+                newProps.onChange && newProps.onChange(newValue)
             }}
         >
             <animated.div
                 className={styles.label}
                 style={labelStyle}
             >
-                {props.label}
+                {newProps.label}
             </animated.div>
             <div className={styles.trackWrap}>
                 <div
