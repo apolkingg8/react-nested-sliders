@@ -7,7 +7,7 @@
 - [x] When dragging the transition bar, it should change delay only.
 - [x] When dragging the left transition handler, it should change delay and duration.
 - [x] When dragging the right transition handler, it should change duration only.
-- [ ] When changing delay and duration, you should also update other tracks which are related to the selected one.
+- [x] When changing delay and duration, you should also update other tracks which are related to the selected one.
 - [ ] If transition bars are too long, you need to have scroll for it. But the track name panel should be fixed.
-- [ ] When a track is selected/hovered, we should highlight both `Track Name` block and `Transition Bar` block. (The whole row)
+- [x] When a track is selected/hovered, we should highlight both `Track Name` block and `Transition Bar` block. (The whole row)
 
