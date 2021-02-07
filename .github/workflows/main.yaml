@@ -17,6 +17,7 @@ jobs:
           node-version: '12.x'
 
       - run: yarn install
+      - run: yarn test
       - run: yarn deploy-storybook -- --ci
         env:
           GH_TOKEN: apolkingg8:${{ secrets.GITHUB_TOKEN }}
