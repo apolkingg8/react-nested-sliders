@@ -26,34 +26,34 @@ const getStyles = _.memoize(()=> (stylesheet({
         display: "flex",
         alignItems: "center",
     },
-    childWrap: {
+    childrenWrap: {
 
     },
-    btn: {
+    collapseBtn: {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        width: 48,
+        width: 24,
+        flexShrink: 0,
         height: percent(100),
         cursor: "pointer",
     }
 })))
 
 const NestedSlider: FC<NestedSliderProps> = (props) => {
-    let childWrapStyle = useSpring(props.data.isCollapsed ? {
-        height: 0,
+    let childrenWrapStyle = useSpring(props.data.isCollapsed ? {
         opacity: 0,
     } : {
-        height: props.data.nodes.length * 64,
         opacity: 1,
     })
+
     let styles = getStyles()
 
     return (
         <>
             <div className={styles.row}>
                 <div
-                    className={styles.btn}
+                    className={styles.collapseBtn}
                     onClick={()=> {
                         props.onChange({
                             ...props.data,
@@ -78,17 +78,17 @@ const NestedSlider: FC<NestedSliderProps> = (props) => {
                 />
             </div>
             <animated.div
-                className={styles.childWrap}
-                style={childWrapStyle}
+                className={styles.childrenWrap}
+                style={childrenWrapStyle}
             >
-                {props.data.nodes.map((data)=> {
+                {!props.data.isCollapsed ? props.data.nodes.map((data)=> {
                     return (
                         <NestedSlider
                             data={data}
                             onChange={props.onChange}
                         />
                     )
-                })}
+                }) : null}
             </animated.div>
         </>
     )
