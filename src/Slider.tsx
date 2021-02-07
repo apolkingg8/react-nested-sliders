@@ -3,6 +3,7 @@ import {stylesheet} from "typestyle";
 import {percent} from "csx";
 import useMeasure from "react-use-measure";
 import {animated, useSpring} from "react-spring";
+import _ from "lodash";
 
 export interface SliderProps {
     label: string
@@ -10,7 +11,7 @@ export interface SliderProps {
     onChange?: (newValue: [number, number])=> void
 }
 
-const useStyles = ()=> (stylesheet({
+const useStyles = ()=> _.memoize(stylesheet)({
     wrap: {
         display: "flex",
         alignItems: "center",
@@ -50,7 +51,7 @@ const useStyles = ()=> (stylesheet({
         borderRadius: percent(50),
         cursor: "move",
     },
-}))
+})
 
 const Slider: FC<SliderProps> = (props) => {
     let [isHover, setIsHover] = useState<[boolean, boolean]>([false, false])

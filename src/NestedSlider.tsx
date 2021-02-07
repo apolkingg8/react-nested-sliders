@@ -3,6 +3,7 @@ import {stylesheet} from "typestyle";
 import Slider from "./Slider";
 import {percent} from "csx";
 import {animated, useSpring} from "react-spring";
+import _ from "lodash";
 
 export interface NestedSliderNode {
     id: string
@@ -17,7 +18,7 @@ export interface NestedSliderProps {
     onChange?: (node: NestedSliderNode)=> void
 }
 
-const useStyles = ()=> (stylesheet({
+const useStyles = ()=> _.memoize(stylesheet)({
     wrap: {
 
     },
@@ -36,7 +37,7 @@ const useStyles = ()=> (stylesheet({
         height: percent(100),
         cursor: "pointer",
     }
-}))
+})
 
 const NestedSlider: FC<NestedSliderProps> = (props) => {
     let childWrapStyle = useSpring(props.data.isCollapsed ? {
