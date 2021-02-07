@@ -21,14 +21,32 @@ export const trackWidth = ()=> {
     let [value, setValue] = useState<[number, number]>([0, 100])
 
     return (
-        <Slider
-            label={`Foo`}
-            value={value}
-            trackWidth={200}
-            onChange={(newValue)=> {
-                setValue(newValue)
-            }}
-        />
+        <>
+            <Slider
+                label={`200`}
+                value={value}
+                trackWidth={200}
+                onChange={(newValue)=> {
+                    setValue(newValue)
+                }}
+            />
+            <Slider
+                label={`300`}
+                value={value}
+                trackWidth={300}
+                onChange={(newValue)=> {
+                    setValue(newValue)
+                }}
+            />
+            <Slider
+                label={`400`}
+                value={value}
+                trackWidth={400}
+                onChange={(newValue)=> {
+                    setValue(newValue)
+                }}
+            />
+        </>
     )
 }
 
