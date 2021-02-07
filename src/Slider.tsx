@@ -11,7 +11,7 @@ export interface SliderProps {
     onChange?: (newValue: [number, number])=> void
 }
 
-const useStyles = ()=> _.memoize(stylesheet)({
+const useStyles = _.memoize(()=> (stylesheet({
     wrap: {
         display: "flex",
         alignItems: "center",
@@ -51,7 +51,7 @@ const useStyles = ()=> _.memoize(stylesheet)({
         borderRadius: percent(50),
         cursor: "move",
     },
-})
+})))
 
 const Slider: FC<SliderProps> = (props) => {
     let [isHover, setIsHover] = useState<[boolean, boolean]>([false, false])

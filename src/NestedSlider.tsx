@@ -18,7 +18,7 @@ export interface NestedSliderProps {
     onChange?: (node: NestedSliderNode)=> void
 }
 
-const useStyles = ()=> _.memoize(stylesheet)({
+const useStyles = _.memoize(()=> (stylesheet({
     wrap: {
 
     },
@@ -37,7 +37,7 @@ const useStyles = ()=> _.memoize(stylesheet)({
         height: percent(100),
         cursor: "pointer",
     }
-})
+})))
 
 const NestedSlider: FC<NestedSliderProps> = (props) => {
     let childWrapStyle = useSpring(props.data.isCollapsed ? {
