@@ -2,19 +2,7 @@ import * as React from 'react';
 import {useState} from 'react';
 import {Meta} from "@storybook/react";
 import NestedSlider, {NestedSliderNode} from "./NestedSlider";
-
-const replaceNode = (root: NestedSliderNode, newNode: NestedSliderNode)=> {
-
-    if(root.id === newNode.id) {
-        return newNode
-    } else {
-        root.nodes = root.nodes.map((_node)=> {
-            return replaceNode(_node, newNode)
-        })
-    }
-
-    return root
-}
+import helper from "./helper";
 
 export const basic = ()=> {
     let [data, setData] = useState<NestedSliderNode>({
@@ -47,7 +35,7 @@ export const basic = ()=> {
         <NestedSlider
             data={data}
             onChange={(newNode)=> {
-                let newData = replaceNode(data, newNode)
+                let newData = helper.replaceNode(data, newNode)
                 setData({
                     ...newData
                 })
