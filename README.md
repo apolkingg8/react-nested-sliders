@@ -24,4 +24,4 @@ yarn storybook
 - [ ] Cleanup onChange logic
 - [ ] Bar scroll should be grouped
 - [ ] Add tests
-- [ ] Storybook CI/CD with github action
+- [x] Storybook CI/CD with github action
