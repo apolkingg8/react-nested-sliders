@@ -7,23 +7,23 @@ import helper from "./helper";
 export const basic = ()=> {
     let [data, setData] = useState<NestedSliderNode>({
         id: `1`,
-        label: `Foo`,
+        label: `1`,
         value: [0, 100],
         isCollapsed: true,
         nodes: [{
             id: `1-1`,
-            label: `Foo-1`,
+            label: `1-1`,
             value: [0, 100],
             isCollapsed: false,
             nodes: []
         }, {
             id: `1-2`,
-            label: `Foo-2`,
+            label: `1-2`,
             value: [0, 100],
             isCollapsed: false,
             nodes: [{
                 id: `1-2-1`,
-                label: `Foo-2-1`,
+                label: `1-2-1`,
                 value: [0, 100],
                 isCollapsed: false,
                 nodes: []
