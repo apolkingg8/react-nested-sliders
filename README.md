@@ -2,7 +2,7 @@
 (Phase challenge #2)
 
 ## Requirements
-- [ ] Should have Fold/Unfold when click on the right-rectangle at the left side of the track name
+- [x] Should have Fold/Unfold when click on the right-rectangle at the left side of the track name
 - [x] Should be able to drag the transition bar, left transition handler and right transition handler to change delay and duration.
 - [x] When dragging the transition bar, it should change delay only.
 - [x] When dragging the left transition handler, it should change delay and duration.

@@ -2,6 +2,7 @@ import React, {FC} from "react";
 import {stylesheet} from "typestyle";
 import Slider from "./Slider";
 import {percent} from "csx";
+import {animated, useSpring} from "react-spring";
 
 export interface NestedSliderNode {
     id: string
@@ -18,8 +19,14 @@ export interface NestedSliderProps {
 
 const useStyles = ()=> (stylesheet({
     wrap: {
+
+    },
+    row: {
         display: "flex",
         alignItems: "center",
+    },
+    childWrap: {
+
     },
     btn: {
         display: "flex",
@@ -32,11 +39,18 @@ const useStyles = ()=> (stylesheet({
 }))
 
 const NestedSlider: FC<NestedSliderProps> = (props) => {
+    let childWrapStyle = useSpring(props.data.isCollapsed ? {
+        height: 0,
+        opacity: 0,
+    } : {
+        height: props.data.nodes.length * 64,
+        opacity: 1,
+    })
     let styles = useStyles()
 
     return (
         <>
-            <div className={styles.wrap}>
+            <div className={styles.row}>
                 <div
                     className={styles.btn}
                     onClick={()=> {
@@ -60,14 +74,19 @@ const NestedSlider: FC<NestedSliderProps> = (props) => {
                     }}
                 />
             </div>
-            {props.data.nodes.map((data)=> {
-                return (
-                    <NestedSlider
-                        data={data}
-                        onChange={props.onChange}
-                    />
-                )
-            })}
+            <animated.div
+                className={styles.childWrap}
+                style={childWrapStyle}
+            >
+                {props.data.nodes.map((data)=> {
+                    return (
+                        <NestedSlider
+                            data={data}
+                            onChange={props.onChange}
+                        />
+                    )
+                })}
+            </animated.div>
         </>
     )
 }
