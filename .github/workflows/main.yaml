@@ -23,5 +23,7 @@ jobs:
           override: true
 
       - run: yarn install
-      - run: yarn deploy-storybook
+      - run: yarn deploy-storybook -- --ci
+        env:
+          GH_TOKEN: apolkingg8:${{ secrets.GITHUB_TOKEN }}
 
