@@ -2,6 +2,20 @@ import {NestedSliderNode} from "./NestedSlider";
 
 class Helper {
 
+    walk = (
+        node: NestedSliderNode,
+        callback: (node: NestedSliderNode, nodePath: string)=> void,
+        path: string = ``
+    )=> {
+        let nodePath = `${path}____${node.id}`
+
+        callback(node, nodePath)
+
+        for(let _node of node.nodes) {
+            this.walk(_node, callback, nodePath)
+        }
+    }
+
     replaceNode = (root: NestedSliderNode, newNode: NestedSliderNode)=> {
 
         if(root.id === newNode.id) {

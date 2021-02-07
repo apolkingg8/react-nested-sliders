@@ -86,7 +86,8 @@ const Slider: FC<SliderProps> = (props) => {
             }}
             onMouseMove={(event)=> {
 
-                if(!event.clientX || event.clientX <= 0) {
+                if(!event.clientX || event.clientX <= 0
+                || !(isDragging[0] || isDragging[1])) {
                     return
                 }
 
