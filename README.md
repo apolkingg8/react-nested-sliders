@@ -2,6 +2,7 @@
 (Phase challenge #2)
 
 ## Demo
+https://apolkingg8.github.io/react-nested-sliders/
 ```
 yarn install
 yarn storybook
