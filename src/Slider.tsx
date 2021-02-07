@@ -91,8 +91,8 @@ const Slider: FC<SliderProps> = (props) => {
 
                 let dx = (event.movementX / trackWidth) * 100
                 let newValue: [number, number] = [
-                    props.value[0] + (isDragging[0] ? dx : 0),
-                    props.value[1] + (isDragging[1] ? dx : 0),
+                    Math.max(0, props.value[0] + (isDragging[0] ? dx : 0)),
+                    Math.min(100, props.value[1] + (isDragging[1] ? dx : 0)),
                 ]
 
                 props.onChange && props.onChange(newValue)
