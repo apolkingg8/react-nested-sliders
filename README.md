@@ -23,5 +23,5 @@ yarn storybook
 - [x] Better slider style
 - [x] Cleanup onChange logic
 - [ ] Bar scroll should be grouped
-- [ ] Add tests for helper
+- [ ] Add more tests for helper
 - [x] Storybook CI/CD with github action
