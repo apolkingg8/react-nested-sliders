@@ -11,6 +11,9 @@ export interface SliderProps {
     onChange?: (newValue: [number, number])=> void
 }
 
+const sliderSize = 4
+const dotSize = 8
+
 const getStyles = _.memoize(()=> (stylesheet({
     wrap: {
         display: "flex",
@@ -37,26 +40,28 @@ const getStyles = _.memoize(()=> (stylesheet({
         overflowX: "auto",
     },
     track: {
+        "-webkit-user-drag": "none",
         position: "relative",
         width: 800,
-        height: 8,
+        height: sliderSize,
         backgroundColor: 'grey',
-        borderRadius: 4,
+        borderRadius: sliderSize / 2,
     },
     bar: {
+        "-webkit-user-drag": "none",
         position: "absolute",
         height: percent(100),
-        borderRadius: 4,
+        borderRadius: sliderSize / 2,
         cursor: "move",
     },
     dot: {
         "-webkit-user-drag": "none",
         position: "absolute",
-        top: -6,
-        width: 16,
-        height: 16,
-        backgroundColor: '#fff',
-        border: `2px solid darkcyan`,
+        top: -sliderSize,
+        width: dotSize,
+        height: dotSize,
+        borderWidth: sliderSize / 2,
+        borderStyle: "solid",
         borderRadius: percent(50),
         cursor: "move",
     },
@@ -71,20 +76,22 @@ const Slider: FC<SliderProps> = (props) => {
     let rightPosition = trackWidth * (100 - props.value[1]) / 100
     let styles = getStyles()
     let labelStyle = useSpring({
-        color: (isHover[0] || isHover[1]) ? "darkcyan" : "black",
-        scale: (isDragging[0] || isDragging[1]) ? 1.2 : 1,
+        color: (isHover[0] || isHover[1] || isDragging[0] || isDragging[1]) ? "darkcyan" : "black",
+        transform: `scale(${(isDragging[0] || isDragging[1]) ? 1.2 : 1})`,
     })
     let barStyle = useSpring({
-        backgroundColor: (isHover[0] || isHover[1]) ? "darkcyan" : "black",
-        scaleY: (isDragging[0] && isDragging[1]) ? 1.2 : 1,
+        backgroundColor: (isHover[0] || isHover[1] || isDragging[0] || isDragging[1]) ? "darkcyan" : "black",
+        transform: `scaleY(${(isDragging[0] || isDragging[1]) ? 1.2 : 1})`,
     })
     let leftDotStyle = useSpring({
-        borderColor: isHover[0] ? "darkcyan" : "black",
-        scale: isDragging[0] ? 1.2 : 1,
+        borderColor: (isHover[0] || isDragging[0]) ? "darkcyan" : "black",
+        transform: `scale(${isDragging[0] ? 1.5 : 1})`,
+        backgroundColor: isDragging[0] ? "darkcyan" : "white",
     })
     let rightDotStyle = useSpring({
-        borderColor: isHover[1] ? "darkcyan" : "black",
-        scale: isDragging[1] ? 1.2 : 1,
+        borderColor: (isHover[1] || isDragging[1]) ? "darkcyan" : "black",
+        transform: `scale(${isDragging[1] ? 1.5 : 1})`,
+        backgroundColor: isDragging[1] ? "darkcyan" : "white",
     })
 
     return (
@@ -124,6 +131,7 @@ const Slider: FC<SliderProps> = (props) => {
                     className={styles.track}
                 >
                     <animated.div
+                        draggable={false}
                         className={styles.bar}
                         style={{
                             ...barStyle,

@@ -1,5 +1,4 @@
-# React nested sliders 
-(Phase challenge #2)
+# React nested sliders (WIP)
 
 ## Demo
 Check online [storybook](https://apolkingg8.github.io/react-nested-sliders/)
@@ -21,6 +20,7 @@ yarn storybook
 - [x] When a track is selected/hovered, we should highlight both `Track Name` block and `Transition Bar` block. (The whole row)
 
 ## Can be better
+- [x] Better slider style
 - [ ] Cleanup onChange logic
 - [ ] Bar scroll should be grouped
 - [ ] Add tests
