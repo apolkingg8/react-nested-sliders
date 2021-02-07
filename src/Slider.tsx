@@ -36,7 +36,6 @@ const useStyles = _.memoize(()=> (stylesheet({
     bar: {
         position: "absolute",
         height: percent(100),
-        backgroundColor: 'darkcyan',
         borderRadius: 4,
         cursor: "move",
     },
@@ -46,7 +45,7 @@ const useStyles = _.memoize(()=> (stylesheet({
         top: -6,
         width: 16,
         height: 16,
-        backgroundColor: 'lightcyan',
+        backgroundColor: '#fff',
         border: `2px solid darkcyan`,
         borderRadius: percent(50),
         cursor: "move",
@@ -62,16 +61,20 @@ const Slider: FC<SliderProps> = (props) => {
     let rightPosition = trackWidth * (100 - props.value[1]) / 100
     let styles = useStyles()
     let labelStyle = useSpring({
-        scale: (isDragging[0] || isDragging[1]) ? 1.3 : (isHover[0] || isHover[1]) ? 1.1 : 1,
+        color: (isHover[0] || isHover[1]) ? "darkcyan" : "black",
+        scale: (isDragging[0] || isDragging[1]) ? 1.2 : 1,
     })
     let barStyle = useSpring({
-        scaleY: (isDragging[0] && isDragging[1]) ? 1.3 : (isHover[0] && isHover[1]) ? 1.1 : 1,
+        backgroundColor: (isHover[0] && isHover[1]) ? "darkcyan" : "black",
+        scaleY: (isDragging[0] && isDragging[1]) ? 1.2 : 1,
     })
     let leftDotStyle = useSpring({
-        scale: isDragging[0] ? 1.3 : isHover[0] ? 1.1 : 1,
+        borderColor: isHover[0] ? "darkcyan" : "black",
+        scale: isDragging[0] ? 1.2 : 1,
     })
     let rightDotStyle = useSpring({
-        scale: isDragging[1] ? 1.3 : isHover[1] ? 1.1 : 1,
+        borderColor: isHover[1] ? "darkcyan" : "black",
+        scale: isDragging[1] ? 1.2 : 1,
     })
 
     return (
