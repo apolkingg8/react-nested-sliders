@@ -10,17 +10,20 @@ export const basic = ()=> {
         label: `1`,
         value: [0, 100],
         isCollapsed: true,
+        color: `#AD1457`,
         nodes: [{
             id: `1-1`,
             label: `1-1`,
             value: [0, 100],
             isCollapsed: false,
+            color: `#EC407A`,
             nodes: [],
         }, {
             id: `1-2`,
             label: `1-2`,
             value: [0, 100],
             isCollapsed: false,
+            color: `#EC407A`,
             nodes: [],
         }],
     })
@@ -41,28 +44,33 @@ export const nested = ()=> {
         label: `1`,
         value: [0, 100],
         isCollapsed: true,
+        color: `#388E3C`,
         nodes: [{
             id: `1-1`,
             label: `1-1`,
             value: [0, 100],
             isCollapsed: false,
+            color: `#689F38`,
             nodes: [],
         }, {
             id: `1-2`,
             label: `1-2`,
             value: [0, 100],
             isCollapsed: true,
+            color: `#689F38`,
             nodes: [{
                 id: `1-2-1`,
                 label: `1-2-1`,
                 value: [0, 100],
                 isCollapsed: false,
+                color: `#AFB42B`,
                 nodes: [],
             }, {
                 id: `1-2-2`,
                 label: `1-2-2`,
                 value: [0, 100],
                 isCollapsed: false,
+                color: `#AFB42B`,
                 nodes: [],
             }]
         }, {
@@ -70,11 +78,13 @@ export const nested = ()=> {
             label: `1-3`,
             value: [0, 100],
             isCollapsed: true,
+            color: `#689F38`,
             nodes: [{
                 id: `1-3-1`,
                 label: `1-3-1`,
                 value: [0, 100],
                 isCollapsed: false,
+                color: `#AFB42B`,
                 nodes: [],
             }]
         }],
@@ -96,28 +106,33 @@ export const multipleNested = ()=> {
         label: `1`,
         value: [0, 100],
         isCollapsed: true,
+        color: `#D32F2F`,
         nodes: [{
             id: `1-1`,
             label: `1-1`,
             value: [0, 100],
             isCollapsed: false,
+            color: `#D32F2F`,
             nodes: []
         }, {
             id: `1-2`,
             label: `1-2`,
             value: [0, 100],
             isCollapsed: false,
+            color: `#F57C00`,
             nodes: [{
                 id: `1-2-1`,
                 label: `1-2-1`,
                 value: [0, 100],
                 isCollapsed: false,
+                color: `#FBC02D`,
                 nodes: []
             }, {
                 id: `1-2-2`,
                 label: `1-2-2`,
                 value: [0, 100],
                 isCollapsed: false,
+                color: `#FBC02D`,
                 nodes: []
             }]
         }],
@@ -127,23 +142,27 @@ export const multipleNested = ()=> {
         label: `2`,
         value: [0, 100],
         isCollapsed: true,
+        color: `#1976D2`,
         nodes: [{
             id: `2-1`,
             label: `2-1`,
             value: [0, 100],
             isCollapsed: false,
-            nodes: []
+            color: `#303F9F`,
+            nodes: [],
         }, {
             id: `2-2`,
             label: `2-2`,
             value: [0, 100],
             isCollapsed: false,
+            color: `#303F9F`,
             nodes: [{
                 id: `2-2-1`,
                 label: `2-2-1`,
                 value: [0, 100],
                 isCollapsed: false,
-                nodes: []
+                color: `#512DA8`,
+                nodes: [],
             }]
         }],
     })

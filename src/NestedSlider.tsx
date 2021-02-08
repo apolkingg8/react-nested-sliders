@@ -9,8 +9,10 @@ export interface NestedSliderNode {
     id: string
     label: string
     value: [number, number]
-    nodes: NestedSliderNode[]
+    trackWidth?: number
+    color?: string
     isCollapsed: boolean
+    nodes: NestedSliderNode[]
 }
 
 export interface NestedSliderProps {
@@ -69,6 +71,8 @@ const NestedSlider: FC<NestedSliderProps> = (props) => {
                     key={props.data.id}
                     label={props.data.label}
                     value={props.data.value}
+                    color={props.data.color}
+                    trackWidth={props.data.trackWidth}
                     onChange={(newValue)=> {
                         props.onChange({
                             ...props.data,
